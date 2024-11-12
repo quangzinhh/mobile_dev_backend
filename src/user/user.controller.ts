@@ -1,7 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, UsePipes, ValidationPipe, Request } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { RequestWithUser } from 'src/auth/request-with-user.interface';
 
 @Controller('user')
 export class UserController {
@@ -13,8 +16,9 @@ export class UserController {
     return this.userService.create(createUserDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
-  findAll() {
+  findAll(@Request() req: RequestWithUser) {
     return this.userService.findAll();
   }
 

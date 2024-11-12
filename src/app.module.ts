@@ -10,6 +10,7 @@ import { QuestionModule } from './question/question.module';
 import { OptionModule } from './option/option.module';
 import { ResponseModule } from './response/response.module';
 import { AnswerModule } from './answer/answer.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { AnswerModule } from './answer/answer.module';
     QuestionModule,
     OptionModule,
     ResponseModule,
-    AnswerModule
+    AnswerModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
