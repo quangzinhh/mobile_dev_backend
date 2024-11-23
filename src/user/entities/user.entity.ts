@@ -17,9 +17,9 @@ export class User {
   @Column({ name: 'm_department_id' })
   mDepartmentId: number;  
 
-  @Column({ name: 'm_created', type: 'varchar', length: 19 })
+  @Column({ name: 'm_created', type: 'varchar', length: 32 })
   mCreated: string;  
 
-  @Column({ name: 'm_modified', type: 'varchar', length: 19 })
+  @Column({ name: 'm_modified', type: 'varchar', length: 32 })
   mModified: string;
 }

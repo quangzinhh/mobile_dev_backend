@@ -34,7 +34,7 @@ export class DepartmentService {
 
   async update(id: number, updateDepartmentDto: UpdateDepartmentDto): Promise<Department> {
     const department = await this.findOne(id);
-    Object.assign(department, updateDepartmentDto);
+    department.mName = updateDepartmentDto.mName
     return await this.departmentRepository.save(department);
   }
 
