@@ -4,11 +4,17 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
+import { UserBelongProjectService } from 'src/user_belong_project/user_belong_project.service';
+import { NotificationService } from 'src/notification/notification.service';
+import { ProjectRepository } from 'src/project/project.repository';
 
 @Injectable()
 export class UserService {
   constructor(
+    private userBelongProjectService: UserBelongProjectService,
+    private notificationService: NotificationService,
     @InjectRepository(UserRepository) private userRepository: UserRepository,
+    @InjectRepository(ProjectRepository) private projectRepository: ProjectRepository,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -33,6 +39,16 @@ export class UserService {
     return user;
   }
 
+  async findByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({
+      mEmail: email
+    });
+    if (!user) {
+      throw new NotFoundException(`User with email ${email} not found`);
+    }
+    return user;
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.findOne(id);
     const updatedUser = Object.assign(user, updateUserDto);
@@ -46,5 +62,16 @@ export class UserService {
     if (result.affected === 0) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
+  }
+  
+  async userJoinProject(userId: number, projectId: number) {
+    return await this.userBelongProjectService.create({
+      mUserId: userId,
+      mProjectId: projectId
+    });
+  }
+
+  async getNotifications(userId: number) {
+    return await this.notificationService.findByUserId(userId)
   }
 }

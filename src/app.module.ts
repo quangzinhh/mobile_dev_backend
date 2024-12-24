@@ -3,14 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { DepartmentModule } from './department/department.module';
-import { UserManageDepartmentModule } from './user_manage_department/user_manage_department.module';
-import { FormModule } from './form/form.module';
-import { QuestionModule } from './question/question.module';
-import { OptionModule } from './option/option.module';
-import { ResponseModule } from './response/response.module';
-import { AnswerModule } from './answer/answer.module';
 import { AuthModule } from './auth/auth.module';
+import { ProjectModule } from './project/project.module';
+import { UserBelongProjectModule } from './user_belong_project/user_belong_project.module';
+import { TaskModule } from './task/task.module';
+import { CommentModule } from './comment/comment.module';
+import { ChatGroupModule } from './chat_group/chat_group.module';
+import { ChatMemberModule } from './chat_member/chat_member.module';
+import { ChatMessageModule } from './chat_message/chat_message.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -25,14 +26,15 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true,
     }),
     UserModule,
-    DepartmentModule,
-    UserManageDepartmentModule,
-    FormModule,
-    QuestionModule,
-    OptionModule,
-    ResponseModule,
-    AnswerModule,
-    AuthModule
+    AuthModule,
+    ProjectModule,
+    UserBelongProjectModule,
+    TaskModule,
+    CommentModule,
+    ChatGroupModule,
+    ChatMemberModule,
+    ChatMessageModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [AppService],
